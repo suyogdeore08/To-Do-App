@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-image: url('349918-pastel-gradient-background-tumblr-wallpaper-desktop-background.jpg');
+    /* background-size: 100% 100%; */
+    background-size: cover;
+    background-position: center ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;  
+    line-height: 1.6;
+
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;   /* centers horizontally */
+    align-items:center ;       /* centers vertically */
+}
+
+.todo-card{
+    width:420px;
+    min-height:580px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius:30px;
+    padding:30px;
+    box-sizing: border-box;
+}
+
+.todo-card h1{
+    text-align: center;
+    padding:0px 0px 30px 0px;
+}
+
+.tab-bar {
+    display: flex;              /* puts all tabs in one horizontal line */
+    gap: 10px;                  /* space between each tab */
+    margin-top: 20px;           /* space above the tab bar */
+    border-bottom: 1px solid #ddd;  /* the full grey line below all tabs */
+}
+
+/* each individual tab */
+.tab {
+    padding: 8px 16px;          /* inner space inside each tab */
+    color: gray;                /* default text color */
+    cursor: pointer;            /* hand cursor when you hover */
+    border-bottom: 2px solid transparent;  /* invisible underline by default */
+    margin-bottom: -1px;        /* overlaps the grey line below perfectly */
+    font-size: 14px;
+}
+
+/* the currently selected tab */
+.tab.active {
+    /* color: #007bff;                     blue text */
+    /* border-bottom: 2px solid #007bff;   blue underline */
+    font-weight: 500;
+}
+
+/* when you hover over an inactive tab */
+.tab:hover {
+    color: #007bff; 
+    border-bottom: 2px solid #007bff            /* turns blue on hover */
+}
+
+/* the list — remove default bullet points */
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+/* each task row */
+.task-item {
+    display: flex;          /* puts checkbox, text, button in one line */
+    align-items: center;    /* vertically centers them */
+    gap: 12px;              /* space between each item */
+    padding: 12px 8px;
+    border-bottom: 1px solid #eee;  /* thin line between tasks */
+}
+
+/* the task text */
+.task-text {
+    flex: 1;                /* takes all remaining space */
+    font-size: 15px;
+}
+
+/* completed task — strikethrough + grey */
+.task-text.completed {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+/* delete button */
+.delete-btn {
+    background: none;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+#task-list li {
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#del-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#task-list li {
+    display: flex;
+    justify-content: space-between; /* pushes items apart */
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #aaa;
+}
+
+.hidden{
+    display :none;
+}
+
+
+.tab.active-btn:hover{
+    color: #007bff;
+}
+
+.tab.complete-btn:hover{
+    color: #007bff;
+}
+
+.active{
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}

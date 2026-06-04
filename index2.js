@@ -7,6 +7,7 @@ const completeBtn = document.querySelector('.complete-btn')
 const allBtn = document.querySelector('.active')
 const taskList = document.getElementById("task-list");
 const input = document.getElementById("task-input");
+const emptyState = document.getElementById("empty-state")
 
 function updateCount () {
     const totalTasks = taskList.children.length;
@@ -15,6 +16,15 @@ function updateCount () {
     allCount.textContent = `All (${totalTasks})`;
     completeCount.textContent = `Completed (${completedTasks})`
     activeCount.textContent = `Active (${activeTasks})`
+
+    console.log(totalTasks)
+
+    if(totalTasks == 0){
+        emptyState.style.display = '';
+    }else{
+        emptyState.style.display = 'none';
+    }
+    
 }
 
 function setActiveTab(clickedTab) {
@@ -36,22 +46,29 @@ addBtn.addEventListener("click", () =>{
     }
 
     const li = document.createElement('li')
+    li.classList.add('task-enter');
     li.textContent = taskText;
 
     li.innerHTML = `
         <input type='checkbox' class='check-btn'>
         <span class="task-text">${taskText}</span>       
-        <button class='del-btn'>Delete</button>        
+        <button class='del-btn btn btn-outline-danger'>Delete</button>        
     `
 
     const checkBtn = li.querySelector('.check-btn')
     const deleteBtn = li.querySelector('.del-btn')
     const taskTextElement = li.querySelector('.task-text');
     
-    deleteBtn.addEventListener("click", ()=>{
+   deleteBtn.addEventListener("click", ()=>{
+
+    li.classList.add("task-delete");
+
+    setTimeout(() => {
         li.remove();
         updateCount();
-    })
+    }, 300);
+
+})
 
     checkBtn.addEventListener('change', ()=>{
         if(checkBtn.checked){
@@ -65,6 +82,9 @@ addBtn.addEventListener("click", () =>{
 
 
     taskList.appendChild(li)
+    setTimeout(() => {
+    li.classList.add('task-show');
+}, 10);
     input.value=""
 
     updateCount();

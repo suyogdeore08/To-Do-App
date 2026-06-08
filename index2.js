@@ -9,6 +9,21 @@ const taskList = document.getElementById("task-list");
 const input = document.getElementById("task-input");
 const emptyState = document.getElementById("empty-state")
 
+let tasks = []
+const savedTasks = localStorage.getItem("tasks");
+
+if(savedTasks){
+    tasks = JSON.parse(savedTasks);
+}
+
+for (const task of tasks) {
+    createTask(task);
+}
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 function updateCount () {
     const totalTasks = taskList.children.length;
     const completedTasks = document.querySelectorAll('.completed').length;
@@ -16,8 +31,6 @@ function updateCount () {
     allCount.textContent = `All (${totalTasks})`;
     completeCount.textContent = `Completed (${completedTasks})`
     activeCount.textContent = `Active (${activeTasks})`
-
-    console.log(totalTasks)
 
     if(totalTasks == 0){
         emptyState.style.display = '';
@@ -37,13 +50,12 @@ function setActiveTab(clickedTab) {
     clickedTab.classList.add('active');
 }
 
-addBtn.addEventListener("click", () =>{
-    const taskText = input.value.trim();
-
+function createTask(taskText){
     if(taskText == ""){
         alert("Please add something in the text box....")
         return
     }
+
 
     const li = document.createElement('li')
     li.classList.add('task-enter');
@@ -55,18 +67,21 @@ addBtn.addEventListener("click", () =>{
         <button class='del-btn btn btn-outline-danger'>Delete</button>        
     `
 
-    const checkBtn = li.querySelector('.check-btn')
+     const checkBtn = li.querySelector('.check-btn')
     const deleteBtn = li.querySelector('.del-btn')
     const taskTextElement = li.querySelector('.task-text');
     
    deleteBtn.addEventListener("click", ()=>{
 
-    li.classList.add("task-delete");
+    const index = tasks.indexOf(taskText);
 
-    setTimeout(() => {
-        li.remove();
-        updateCount();
-    }, 300);
+    if(index !== -1){
+        tasks.splice(index, 1);
+        saveTasks();
+    }
+
+    li.remove();
+    updateCount();
 
 })
 
@@ -89,6 +104,18 @@ addBtn.addEventListener("click", () =>{
 
     updateCount();
 
+
+}
+
+addBtn.addEventListener("click", () =>{
+    const taskText = input.value.trim();
+    tasks.push(taskText);
+    saveTasks();
+
+    createTask(taskText);
+
+    
+   
 })
 
 activeCount.addEventListener("click", ()=>{

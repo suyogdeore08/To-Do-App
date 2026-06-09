@@ -50,30 +50,35 @@ function setActiveTab(clickedTab) {
     clickedTab.classList.add('active');
 }
 
-function createTask(taskText){
-    if(taskText == ""){
-        alert("Please add something in the text box....")
+function createTask(task){
+    if(task == ""){
+        // alert("Please add something in the text box....")
         return
     }
 
 
     const li = document.createElement('li')
     li.classList.add('task-enter');
-    li.textContent = taskText;
+    li.textContent = task;
 
     li.innerHTML = `
         <input type='checkbox' class='check-btn'>
-        <span class="task-text">${taskText}</span>       
+        <span class="task-text">${task.text}</span>       
         <button class='del-btn btn btn-outline-danger'>Delete</button>        
-    `
+    `    
 
-     const checkBtn = li.querySelector('.check-btn')
+    const checkBtn = li.querySelector('.check-btn')
     const deleteBtn = li.querySelector('.del-btn')
     const taskTextElement = li.querySelector('.task-text');
+
+    if(task.completed){
+        checkBtn.checked = true;
+        taskTextElement.classList.add("completed");
+    }
     
    deleteBtn.addEventListener("click", ()=>{
 
-    const index = tasks.indexOf(taskText);
+    const index = tasks.indexOf(task);
 
     if(index !== -1){
         tasks.splice(index, 1);
@@ -85,7 +90,13 @@ function createTask(taskText){
 
 })
 
+console.log(tasks);
     checkBtn.addEventListener('change', ()=>{
+        task.completed = checkBtn.checked;
+
+        saveTasks();
+
+
         if(checkBtn.checked){
            taskTextElement.classList.add("completed");
         }else{
@@ -108,13 +119,22 @@ function createTask(taskText){
 }
 
 addBtn.addEventListener("click", () =>{
-    const taskText = input.value.trim();
-    tasks.push(taskText);
-    saveTasks();
+        const taskText = input.value.trim();
 
-    createTask(taskText);
+    if(taskText === ""){
+        alert("Please add something in the text box....");
+        return;
+    }
 
+
+    const newTask = {
+        text : taskText,
+        completed : false
+    }
+    tasks.push(newTask);
     
+    saveTasks();
+    createTask(newTask);
    
 })
 
